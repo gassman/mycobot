@@ -1,2 +1,2 @@
-# mygobot
+# mycobot
 Go implementation of Elephant Robotics MyCobot 280 API
