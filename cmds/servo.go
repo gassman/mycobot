@@ -2,23 +2,23 @@ package cmds
 
 const (
 	// Servo control
-	IsServoEnable       = 0x50
-	IsAllServoEnable    = 0x51
-	SetServoData        = 0x52
-	GetServoData        = 0x53
-	SetServoCalibration = 0x54
-	JointBrake          = 0x55
-	ReleaseServo        = 0x56
-	FocusServo          = 0x57
+	IsServoEnable       Instruction = 0x50
+	IsAllServoEnable    Instruction = 0x51
+	SetServoData        Instruction = 0x52
+	GetServoData        Instruction = 0x53
+	SetServoCalibration Instruction = 0x54
+	JointBrake          Instruction = 0x55
+	ReleaseServo        Instruction = 0x56
+	FocusServo          Instruction = 0x57
 
 	// Motor status read
-	GetServoSpeed      = 0xe1
-	GetServoCurrents   = 0xe2
-	GetServoVoltages   = 0xe3
-	GetServoStatus     = 0xe4
-	GetServoTemps      = 0xe5
-	GetServoLastpdi    = 0xe6
-	ServoRestore       = 0xe7
-	SetErrorDetectMode = 0xe8
-	GetErrorDetectMode = 0xe9
+	GetServoSpeed      Instruction = 0xe1
+	GetServoCurrents   Instruction = 0xe2
+	GetServoVoltages   Instruction = 0xe3
+	GetServoStatus     Instruction = 0xe4
+	GetServoTemps      Instruction = 0xe5
+	GetServoLastpdi    Instruction = 0xe6
+	ServoRestore       Instruction = 0xe7
+	SetErrorDetectMode Instruction = 0xe8
+	GetErrorDetectMode Instruction = 0xe9
 )
