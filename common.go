@@ -2,6 +2,7 @@ package mycobot
 
 import (
 	"mycobot/cmds"
+	"mycobot/cobot"
 )
 
 type Message struct {
@@ -73,6 +74,18 @@ var msgs = [...]Message{
 	{Id: cmds.SetGripperState, Reply: false, Size: 7, Data: []byte{0xfe, 0xfe, 0x04, 0x6a, 0x00, 0x00, 0xfa}},
 	{Id: cmds.SetBasicOutput, Reply: false, Size: 7, Data: []byte{0xfe, 0xfe, 0x04, 0xa0, 0x00, 0x00, 0xfa}},
 	{Id: cmds.GetBasicInput, Reply: true, ReplySize: 7, Size: 6, Data: []byte{0xfe, 0xfe, 0x03, 0xa1, 0x00, 0xfa}},
+	{Id: cmds.SetToolReference, Reply: false, Size: 17, Data: []byte{0xfe, 0xfe, 0x0e, 0x81, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xfa}},
+	{Id: cmds.GetToolReference, Reply: true, ReplySize: 17, Size: 5, Data: []byte{0xfe, 0xfe, 0x02, 0x82, 0xfa}},
+	{Id: cmds.SetWorldReference, Reply: false, Size: 17, Data: []byte{0xfe, 0xfe, 0x0e, 0x84, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xfa}},
+	{Id: cmds.SetReferenceFrame, Reply: false, Size: 6, Data: []byte{0xfe, 0xfe, 0x03, 0x85, 0x00, 0xfa}},
+	{Id: cmds.GetReferenceFrame, Reply: true, ReplySize: 6, Size: 5, Data: []byte{0xfe, 0xfe, 0x02, 0x86, 0xfa}},
+	{Id: cmds.SetEndType, Reply: false, Size: 6, Data: []byte{0xfe, 0xfe, 0x03, 0x89, 0x00, 0xfa}},
+	{Id: cmds.GetEndType, Reply: true, ReplySize: 6, Size: 5, Data: []byte{0xfe, 0xfe, 0x02, 0x8a, 0xfa}},
+}
+
+func NewCobot( serialPort string){
+	ctrl := cobot.Initialize()
+	ctrl.
 }
 
 func NewMessage(msgId cmds.Instruction, data []byte) *Message {
@@ -104,3 +117,9 @@ func Short2HighLow(short uint16) (byte, byte) {
 func HighLow2Short(high byte, low byte) uint16 {
 	return uint16(low) | uint16(high)<<8
 }
+
+//
+//
+// Generator functions
+//
+//
