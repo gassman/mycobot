@@ -2,7 +2,6 @@ package mycobot
 
 import (
 	"mycobot/cmds"
-	"mycobot/cobot"
 )
 
 type Message struct {
@@ -81,11 +80,6 @@ var msgs = [...]Message{
 	{Id: cmds.GetReferenceFrame, Reply: true, ReplySize: 6, Size: 5, Data: []byte{0xfe, 0xfe, 0x02, 0x86, 0xfa}},
 	{Id: cmds.SetEndType, Reply: false, Size: 6, Data: []byte{0xfe, 0xfe, 0x03, 0x89, 0x00, 0xfa}},
 	{Id: cmds.GetEndType, Reply: true, ReplySize: 6, Size: 5, Data: []byte{0xfe, 0xfe, 0x02, 0x8a, 0xfa}},
-}
-
-func NewCobot( serialPort string){
-	ctrl := cobot.Initialize()
-	ctrl.
 }
 
 func NewMessage(msgId cmds.Instruction, data []byte) *Message {
