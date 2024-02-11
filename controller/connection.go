@@ -2,6 +2,7 @@ package controller
 
 import (
 	"errors"
+	"time"
 
 	log "github.com/sirupsen/logrus"
 	"go.bug.st/serial"
@@ -28,7 +29,7 @@ type Connection struct {
 	PortList      []string
 }
 
-func NewConnection(baud int, stopBits int) (*Connection, error) {
+func NewConnection(baud int) (*Connection, error) {
 	ports, err := serial.GetPortsList()
 	if err != nil {
 		return nil, err
@@ -42,16 +43,18 @@ func NewConnection(baud int, stopBits int) (*Connection, error) {
 	conn := new(Connection)
 	conn.PortMode = new(serial.Mode)
 	conn.PortMode.BaudRate = baud
-	conn.PortMode.DataBits = 8
-	conn.PortMode.Parity = serial.NoParity
-	conn.PortMode.StopBits = serial.StopBits(stopBits)
 	conn.PortState = PortClosed
+	conn.PortList = ports
 	return conn, nil
 }
 
 func (c *Connection) Connect(port string) error {
 	if stringInSlice(port, c.PortList) && c.PortMode != nil {
 		conn, err := serial.Open(port, c.PortMode)
+		if err != nil {
+			return err
+		}
+		err = conn.SetReadTimeout(5 * time.Second)
 		if err != nil {
 			return err
 		}
@@ -64,9 +67,13 @@ func (c *Connection) Connect(port string) error {
 }
 
 func (c *Connection) Disconnect() error {
-	c.PortState = PortClosed
-	if err := c.ConnectedPort.Close(); err != nil {
-		return err
+	if c.PortState == PortOpen {
+		c.PortState = PortClosed
+		if err := c.ConnectedPort.Close(); err != nil {
+			return err
+		}
+	} else {
+		return errors.New("port is not connected")
 	}
 	return nil
 }

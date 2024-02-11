@@ -32,7 +32,7 @@ func SendMessage(data []byte) error {
 }
 
 func ReceiveMessage() ([]byte, error) {
-
+	return []byte{}, nil
 }
 
 func GetAngles() ([]float32, error) {

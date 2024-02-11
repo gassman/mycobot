@@ -10,7 +10,7 @@ var err error
 // TestNewConnection calls NewConnection with baud and stop bits
 // Returned structure shoud contain a list of available ports
 func TestNewConnection(t *testing.T) {
-	conn, err = NewConnection(9600, 1)
+	conn, err = NewConnection(115200)
 	if conn == nil || err != nil {
 		t.Fatalf(`Error creating a new conection , %v`, err)
 	}
@@ -22,7 +22,7 @@ func TestConnect(t *testing.T) {
 	if conn == nil {
 		t.Fatalf(`Looks like a previous test failed, giving up`)
 	}
-	err = conn.Connect("/dev/ttyS0")
+	err = conn.Connect("/dev/ttyAMA0")
 	if err != nil {
 		t.Fatalf(`Error connecting to device, %v, check permissions`, err)
 	}
@@ -34,7 +34,7 @@ func TestWriteData(t *testing.T) {
 	if conn == nil {
 		t.Fatalf(`Looks like a previous test failed, giving up`)
 	}
-	msg := []byte("hello")
+	msg := []byte{0xfe, 0xfe, 0x02, 0x10, 0xfa}
 	err = conn.WriteData(msg)
 	if err != nil {
 		t.Fatalf(`Error sending bytes to device, %v`, err)
